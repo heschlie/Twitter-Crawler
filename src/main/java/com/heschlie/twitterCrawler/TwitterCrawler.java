@@ -13,6 +13,7 @@ public class TwitterCrawler {
     private LinkedBlockingQueue<Status> postTweets;
 
     private ConcurrentHashMap<String, AtomicInteger> noisyUsers;
+    private ConcurrentHashMap<String, AtomicInteger> popularHashtags;
 
     private int NUMTHREADS = Runtime.getRuntime().availableProcessors();
 
@@ -26,12 +27,13 @@ public class TwitterCrawler {
         postTweets = new LinkedBlockingQueue<Status>();
 
         noisyUsers = new ConcurrentHashMap<String, AtomicInteger>();
+        popularHashtags = new ConcurrentHashMap<String, AtomicInteger>();
 
         new Thread(new Crawler(readTweets)).start();
         NUMTHREADS--;
 
         for (int i = 0; i < NUMTHREADS; i++) {
-            new Thread(new TweetProcessor(readTweets, postTweets, noisyUsers)).start();
+            new Thread(new TweetProcessor(readTweets, postTweets, noisyUsers, popularHashtags)).start();
         }
     }
 

@@ -14,11 +14,16 @@ public class TweetProcessor implements Runnable {
     private LinkedBlockingQueue<Status> readQueue;
     private LinkedBlockingQueue<Status> postQueue;
     private ConcurrentHashMap<String, AtomicInteger> userSightings;
+    private ConcurrentHashMap<String, AtomicInteger> popularhastags;
 
-    public TweetProcessor(LinkedBlockingQueue<Status> readQueue, LinkedBlockingQueue<Status> postQueue, ConcurrentHashMap<String, AtomicInteger> userSightings) {
+    public TweetProcessor(LinkedBlockingQueue<Status> readQueue,
+                          LinkedBlockingQueue<Status> postQueue,
+                          ConcurrentHashMap<String, AtomicInteger> userSightings,
+                          ConcurrentHashMap<String, AtomicInteger> popularHashtags) {
         this.userSightings = userSightings;
         this.readQueue = readQueue;
         this.postQueue = postQueue;
+        this.popularhastags = popularHashtags;
     }
 
     @Override
@@ -35,13 +40,20 @@ public class TweetProcessor implements Runnable {
 
     private void processStatus(Status status) throws InterruptedException {
         //Get interesting info
-        String userName = status.getUser().getName();
+        String userName = status.getUser().getScreenName();
         String message = status.getText();
         HashtagEntity[] hashtags = status.getHashtagEntities();
 
         //Add and iterate the users
         userSightings.putIfAbsent(userName, new AtomicInteger(0));
         userSightings.get(userName).incrementAndGet();
+
+        //Add hashtags to the list
+        for (HashtagEntity tag : hashtags) {
+            String text = tag.getText();
+            popularhastags.putIfAbsent(text, new AtomicInteger(0));
+            popularhastags.get(text).incrementAndGet();
+        }
 
         //Check for keywords and if so add to retweet queue
         if (checkWords(message)) {

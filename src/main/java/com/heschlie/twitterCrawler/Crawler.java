@@ -37,10 +37,10 @@ public class Crawler implements Runnable, StatusListener{
 
     @Override
     public void onStatus(Status status) {
-        if (status.getUser().getName().equals("schlieBot") ||
-                !status.getLang().equals("en")) {
-            return;
-        }
+//        if (status.getUser().getName().equals("schlieBot") ||
+//                !status.getLang().equals("en")) {
+//            return;
+//        }
 
         try {
             readQueue.put(status);
