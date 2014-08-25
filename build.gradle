@@ -11,4 +11,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'org.twitter4j:twitter4j-core:4+'
     compile 'org.twitter4j:twitter4j-stream:4+'
+    compile 'com.esotericsoftware.kryo:kryo:2.24.0'
+    compile 'org.apache.logging.log4j:log4j-api:2+'
+    compile 'org.apache.logging.log4j:log4j-core:2+'
 }

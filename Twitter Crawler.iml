@@ -18,6 +18,11 @@
     <orderEntry type="library" scope="TEST" name="Gradle: hamcrest-core-1.3" level="project" />
     <orderEntry type="library" exported="" name="Gradle: twitter4j-core-4.0.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: twitter4j-stream-4.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: kryo-2.24.0" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: minlog-1.2" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: objenesis-2.1" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: log4j-api-2.0.2" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: log4j-core-2.0.2" level="project" />
   </component>
 </module>
 
