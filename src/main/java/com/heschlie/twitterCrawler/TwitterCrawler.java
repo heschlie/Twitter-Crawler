@@ -47,6 +47,7 @@ public class TwitterCrawler {
             new Thread(new TweetProcessor(readTweets, postTweets, noisyUsers, popularHashtags)).start();
         }
 
+        //Save the Maps to file every 5 minutes in case of crash
         Timer timer = new Timer();
 //        timer.scheduleAtFixedRate(new MapWriter(), 300000L, 300000L);
         timer.scheduleAtFixedRate(new MapWriter(), 5000L, 5000L);
