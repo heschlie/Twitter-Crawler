@@ -8,6 +8,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Created by sschlie on 8/20/2014.
+ * Actual crawler, holds OAuth2 info and some basic sorting of status info
  */
 public class Crawler implements Runnable, StatusListener{
     private TwitterStream stream;

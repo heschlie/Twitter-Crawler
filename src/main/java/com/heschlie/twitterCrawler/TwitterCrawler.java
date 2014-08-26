@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.*;
@@ -23,6 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by sschlie on 8/20/2014.
+ * A Twitter crawler being used for fun!
  */
 public class TwitterCrawler {
     private LinkedBlockingQueue<Status> readTweets;
@@ -63,6 +62,7 @@ public class TwitterCrawler {
         timer.scheduleAtFixedRate(new MapWriter(), 5000L, 5000L);
     }
 
+    @SuppressWarnings("unchecked")
     private void readFiles() {
         Kryo kryo = new Kryo();
         kryo.register(ConcurrentHashMap.class);

@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by sschlie on 8/20/2014.
+ * The Magic is done here for the most part, we separate out the statuses and do tings with them
  */
 public class TweetProcessor implements Runnable {
     private LinkedBlockingQueue<Status> readQueue;
@@ -26,6 +27,7 @@ public class TweetProcessor implements Runnable {
         this.popularhastags = popularHashtags;
     }
 
+    @SuppressWarnings("InfiniteLoopStatement")
     @Override
     public void run() {
         while (true) {
