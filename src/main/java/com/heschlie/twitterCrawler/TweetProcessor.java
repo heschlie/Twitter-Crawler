@@ -62,7 +62,7 @@ public class TweetProcessor implements Runnable {
     }
 
     /**
-    Checks the given message from the a status for keywords
+     * Checks the given message from the a status for keywords
      */
     private boolean checkWords(String message) {
         boolean containsKeywords = false;

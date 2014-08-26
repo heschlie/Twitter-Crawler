@@ -1,5 +1,6 @@
 package com.heschlie.twitterCrawler;
 
+import org.apache.logging.log4j.*;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -12,12 +13,16 @@ public class Crawler implements Runnable, StatusListener{
     private TwitterStream stream;
     private LinkedBlockingQueue<Status> readQueue;
 
+    private org.apache.logging.log4j.Logger log;
+
     public Crawler(LinkedBlockingQueue<Status> readQueue) {
         this.readQueue = readQueue;
         ConfigurationBuilder cb = createBuilder();
         TwitterStreamFactory tsf = new TwitterStreamFactory(cb.build());
         stream = tsf.getInstance();
         stream.addListener(this);
+
+        log = LogManager.getLogger();
     }
 
     private ConfigurationBuilder createBuilder() {
@@ -37,14 +42,15 @@ public class Crawler implements Runnable, StatusListener{
 
     @Override
     public void onStatus(Status status) {
-//        if (status.getUser().getName().equals("schlieBot") ||
-//                !status.getLang().equals("en")) {
-//            return;
-//        }
+        if (status.getUser().getName().equals("schlieBot")) {
+            return;
+        }
 
         try {
             readQueue.put(status);
         } catch (InterruptedException e) {
+            log.error("Failed to append to readQueue");
+            log.error(e.getMessage());
             e.printStackTrace();
         }
     }
